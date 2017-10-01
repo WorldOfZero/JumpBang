@@ -11,6 +11,7 @@ public class PlayerInputController : MonoBehaviour {
     public float y;
     public bool dropBomb;
     public bool explodeBomb;
+    public bool dash;
 
     private Player player;
 
@@ -26,5 +27,6 @@ public class PlayerInputController : MonoBehaviour {
         y = player.GetAxis("Vertical");
         dropBomb = player.GetButtonDown("DropBomb");
         explodeBomb = player.GetButtonDown("ExplodeBomb");
+        dash = player.GetButton("Dash");
     }
 }

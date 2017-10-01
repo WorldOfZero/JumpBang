@@ -41,19 +41,25 @@ public class ExplosionController : MonoBehaviour {
         
         if (destroyedBlocks.Count() > 0)
         {
-            GameObject gobj = new GameObject();
-            var newRigidbody = gobj.AddComponent<Rigidbody2D>();
-            var forceSum = Vector3.zero;
+            //GameObject gobj = new GameObject();
+            //var newRigidbody = gobj.AddComponent<Rigidbody2D>();
+            //var forceSum = Vector3.zero;
             foreach (var block in destroyedBlocks)
             {
-                gobj.layer |= block.gameObject.layer;
-                block.transform.parent = gobj.transform;
-                Destroy(block);
-                forceSum += (block.transform.position - this.transform.position).normalized * force;
+                //    gobj.layer |= block.gameObject.layer;
+                block.bodyType = RigidbodyType2D.Dynamic;
+                block.transform.parent = null; // gobj.transform;
+            //    Destroy(block);
+                block.AddForce((block.transform.position - this.transform.position).normalized * force);
             }
-            newRigidbody.AddForce(forceSum);
+            //newRigidbody.AddForce(forceSum);
         }
 
+        var bombsInProximity = colliders.Select(collider => collider.GetComponent<Rigidbody2D>()).Where(controller => controller != null).Where(body => body.gameObject.layer == LayerMask.NameToLayer("Bomb"));
+        foreach (var bomb in bombsInProximity)
+        {
+            bomb.AddForce((bomb.transform.position - this.transform.position).normalized * force);
+        }
     }
 
     public void Explode()
@@ -66,5 +72,10 @@ public class ExplosionController : MonoBehaviour {
     public void Select()
     {
         explosionAnimator.SetTrigger("Selected");
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        Explode();
     }
 }

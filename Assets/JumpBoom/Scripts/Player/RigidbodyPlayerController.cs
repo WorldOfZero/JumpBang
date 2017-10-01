@@ -11,6 +11,7 @@ public class RigidbodyPlayerController : MonoBehaviour {
     public PlayerInputController input;
 
     public bool grounded;
+    public LayerMask groundedMask;
     public float horizontalSpeed;
     public float inAirHorizontalSpeed;
     public float friction;
@@ -20,6 +21,10 @@ public class RigidbodyPlayerController : MonoBehaviour {
 
     public int storedBombs = 3;
     private Queue<ExplosionController> bombs = new Queue<ExplosionController>();
+
+    public float dashDistance = 0.5f;
+    public float dashVelocity = 10f;
+    private bool dashAvailable = true;
 
 	// Use this for initialization
 	void Start () {
@@ -56,9 +61,19 @@ public class RigidbodyPlayerController : MonoBehaviour {
             storedBombs -= 1;
         }
 
+        if (input.dash && dashAvailable)
+        {
+            dashAvailable = !Dash();
+        }
+        
         if (bombs.Count > 0)
         {
             var tempBomb = bombs.Peek();
+            if (tempBomb == null)
+            {
+                bombs.Dequeue();
+                return;
+            }
             tempBomb.Select();
 
             if (input.explodeBomb)
@@ -67,6 +82,48 @@ public class RigidbodyPlayerController : MonoBehaviour {
                 bomb.Explode();
             }
         }
+    }
+
+    private bool Dash()
+    {
+        if (Mathf.Abs(input.x) > 0.1f || Mathf.Abs(input.y) > 0.1f)
+        {
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+            {
+                if (input.x > 0)
+                {
+                    // Right dash
+                    Dash(Vector2.right);
+                }
+                else
+                {
+                    // Left dash
+                    Dash(Vector2.left);
+                }
+            }
+            else // Vertical Dash
+            {
+                if (input.y > 0)
+                {
+                    Dash(Vector2.up);
+                }
+                else
+                {
+                    Dash(Vector2.down);
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void Dash(Vector2 direction)
+    {
+        rigidbody.velocity = direction * dashVelocity;
+        rigidbody.MovePosition((Vector2)this.transform.position + direction * dashDistance);
     }
 
     internal void AddVelocity(Vector2 direction, float force)
@@ -79,10 +136,16 @@ public class RigidbodyPlayerController : MonoBehaviour {
     {
         //velocity.y = jumpStrength;
         rigidbody.AddForce(Vector2.up * jumpStrength, ForceMode2D.Force);
+        grounded = false;
     }
 
     private bool IsGrounded()
     {
-        return Physics2D.CircleCastAll(this.transform.position, 0.5f, Vector2.down, 0.1f).Any(body => body.transform != rigidbody.transform);
+        return Physics2D.CircleCastAll(this.transform.position, 0.5f, Vector2.down, 0.1f, groundedMask).Any(body => body.transform != rigidbody.transform);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        dashAvailable = true;
     }
 }

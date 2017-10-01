@@ -6,8 +6,6 @@ public class BlockDestructionHandler : MonoBehaviour {
 
     public GameObject blockPrefab;
     private bool[,] block = new bool[,] {
-        {true, true, true, true },
-        {true, true, true, true },
         {true, true, true, true }
     };
 
