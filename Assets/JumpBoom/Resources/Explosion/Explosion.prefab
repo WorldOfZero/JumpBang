@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 95495463647344498}
   - component: {fileID: 50278019580392228}
   - component: {fileID: 58379717970569230}
+  - component: {fileID: 114524965979154268}
   m_Layer: 9
   m_Name: Explosion
   m_TagString: Untagged
@@ -190,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501552839068100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0861514, y: 2.81, z: 0}
+  m_LocalPosition: {x: 1.8904164, y: 12.184898, z: -30.831322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4888735147337586}
@@ -367,6 +368,27 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114524965979154268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501552839068100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163662cafa98d004aa61a03ccef1a8d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTheme: {r: 0.578, g: 0, b: 0.703, a: 1}
+  sprites:
+  - {fileID: 212792716248549350}
+  - {fileID: 212096851968057112}
+  - {fileID: 212603503399913732}
+  - {fileID: 212364990143589764}
+  - {fileID: 212175218463591396}
+  - {fileID: 212896556479936782}
+  trails:
+  - {fileID: 96038721083756466}
 --- !u!114 &114988723780735754
 MonoBehaviour:
   m_ObjectHideFlags: 1

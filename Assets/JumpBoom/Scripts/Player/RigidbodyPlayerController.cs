@@ -28,10 +28,10 @@ public class RigidbodyPlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
     {
         var calculatedVelocity = Vector2.zero;
         calculatedVelocity.x += input.x * (grounded ? horizontalSpeed : inAirHorizontalSpeed);
@@ -54,11 +54,19 @@ public class RigidbodyPlayerController : MonoBehaviour {
 
         grounded = IsGrounded();
 
-        if (storedBombs > 0 && input.dropBomb)
+        if (input.dropBomb) //storedBombs > 0 && 
         {
             var droppedBomb = Instantiate(bomb, this.transform.position, this.transform.rotation);
+            var theme = GetComponent<PlayerTheme>();
+            var bombTheme = bomb.GetComponent<PlayerTheme>();
+            bombTheme.playerTheme = theme.playerTheme;
             bombs.Enqueue(droppedBomb.GetComponent<ExplosionController>());
-            storedBombs -= 1;
+
+            if (bombs.Count > 3)
+            {
+                input.explodeBomb = true;
+            }
+            //storedBombs -= 1;
         }
 
         if (input.dash && dashAvailable)

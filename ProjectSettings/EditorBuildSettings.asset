@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/JumpBoom/Scenes/testscene.unity
+    guid: 3b527dd312902c94c832896538c7fa76

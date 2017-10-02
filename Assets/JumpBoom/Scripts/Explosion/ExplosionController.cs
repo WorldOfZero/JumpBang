@@ -34,7 +34,16 @@ public class ExplosionController : MonoBehaviour {
         var colliders = Physics2D.OverlapCircleAll(this.transform.position, maxSize * 0.5f);
         foreach (var controller in colliders.Select(collider => collider.GetComponent<RigidbodyPlayerController>()).Where(controller => controller != null))
         {
-            controller.AddVelocity((controller.transform.position - this.transform.position), force);
+            var theme = controller.GetComponent<PlayerTheme>();
+            var bulletTheme = GetComponent<PlayerTheme>();
+            if (theme.playerTheme == bulletTheme.playerTheme)
+            {
+                controller.AddVelocity((controller.transform.position - this.transform.position), force);
+            }
+            else
+            {
+                Destroy(controller.gameObject);
+            }
         }
 
         var destroyedBlocks = colliders.Select(collider => collider.GetComponent<Rigidbody2D>()).Where(controller => controller != null).Where(body => body.gameObject.layer == LayerMask.NameToLayer("Level"));

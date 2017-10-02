@@ -40,9 +40,11 @@ GameObject:
   - component: {fileID: 114614728577964494}
   - component: {fileID: 114170333169171106}
   - component: {fileID: 58533322618577952}
+  - component: {fileID: 114815708493542116}
+  - component: {fileID: 114191353394081352}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1781694434767708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4942045153264152}
@@ -195,7 +197,7 @@ TrailRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 0
     generateLightingData: 0
   m_MinVertexDistance: 0.1
@@ -217,6 +219,19 @@ MonoBehaviour:
   dropBomb: 0
   explodeBomb: 0
   dash: 0
+--- !u!114 &114191353394081352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781694434767708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7546cb7bd643b3e488a35e5c302578f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 1151210518944148, guid: e15efa14172983b448d05bf05cb5f95b,
+    type: 2}
 --- !u!114 &114614728577964494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -241,7 +256,23 @@ MonoBehaviour:
   bomb: {fileID: 1501552839068100, guid: ae8f608e66442574592e3a609579a97f, type: 2}
   storedBombs: 50
   dashDistance: 0.5
-  dashVelocity: 10
+  dashVelocity: 5
+--- !u!114 &114815708493542116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781694434767708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163662cafa98d004aa61a03ccef1a8d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTheme: {r: 0.578, g: 0, b: 0.703, a: 1}
+  sprites:
+  - {fileID: 212285122274060494}
+  trails:
+  - {fileID: 96019778149855594}
 --- !u!212 &212285122274060494
 SpriteRenderer:
   m_ObjectHideFlags: 1
